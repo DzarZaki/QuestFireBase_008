@@ -6,31 +6,33 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.pertemuan13.ui.home.pages.InsertMhsView
+import com.example.pertemuan13.ui.home.pages.HomeScreen
+import com.example.pertemuan13.ui.insert.pages.InsertMhsView
 
 @Composable
-fun PengelolaHalaman(
+fun PengelolaHalaman (
     modifier: Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    NavHost(
+    NavHost (
         navController = navController,
         startDestination = DestinasiHome.route,
-        modifier = Modifier
-    ) {
+        modifier = modifier
+    ){
         composable(DestinasiHome.route) {
-            HomeView(
-                navigateToItemEnrty = {
+            HomeScreen(
+                navigateToItemEntry = {
                     navController.navigate(DestinasiInsert.route)
-                },
+                }
             )
         }
         composable(DestinasiInsert.route) {
             InsertMhsView(
-                onBack = { navController.popBackStack()},
+                onBack = { navController.popBackStack() },
                 onNavigate = {
                     navController.navigate(DestinasiHome.route)
-                })
+                }
+            )
         }
     }
 }

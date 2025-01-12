@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pertemuan13.model.Mahasiswa
 import com.example.pertemuan13.repository.RepositoryMhs
 import kotlinx.coroutines.launch
 
@@ -97,7 +98,7 @@ data class MahasiswaEvent(
 fun MahasiswaEvent.toMhsModel() : Mahasiswa = Mahasiswa(
     nim = nim,
     nama = nama,
-    jenisKelamin = jenisKelamin,
+    jeniskelamin = jenisKelamin,
     alamat = alamat,
     kelas = kelas,
     angkatan = angkatan

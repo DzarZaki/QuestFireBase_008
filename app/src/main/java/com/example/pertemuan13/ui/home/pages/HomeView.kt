@@ -39,8 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pertemuan13.model.Mahasiswa
 import com.example.pertemuan13.ui.PenyediaViewModel
-import com.example.pertemuan13.ui.home.viewmodel.HomeUiState
 import com.example.pertemuan13.ui.home.viewmodel.HomeViewModel
+import com.example.pertemuan13.ui.home.viewmodel.HomeuiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,7 +81,7 @@ fun HomeScreen(
 }
 @Composable
 fun HomeStatus(
-    homeUiState: HomeUiState,
+    homeUiState: HomeuiState,
     retryAction: () -> Unit,
     modifier: Modifier = Modifier,
     onDeleteClick: (Mahasiswa) -> Unit = {},
@@ -89,9 +89,9 @@ fun HomeStatus(
 ){
     var deleteConfirmationRequired by rememberSaveable { mutableStateOf<Mahasiswa?>(null) }
     when (homeUiState){
-        is HomeUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
+        is HomeuiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
 
-        is HomeUiState.Success ->{
+        is HomeuiState.Success ->{
             MhsLayout(mahasiswa = homeUiState.data,modifier = modifier.fillMaxWidth(), onDetailClick = {
                 onDeleteClick(it)
             },
@@ -110,7 +110,7 @@ fun HomeStatus(
                     })
             }
         }
-        is HomeUiState.Error -> OnError(retryAction,
+        is HomeuiState.Error -> OnError(retryAction,
             modifier = modifier.fillMaxSize(), message = homeUiState.e.message?:"Error")
     }
 }
