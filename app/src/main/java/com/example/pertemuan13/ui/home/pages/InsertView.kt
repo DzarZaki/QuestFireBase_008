@@ -131,3 +131,80 @@ fun InsertBodyMhs(
         }
     }
 }
+@Composable
+fun FormMahasiswa(
+    mahasiswaEvent: MahasiswaEvent = MahasiswaEvent(),
+    onValueChange: (MahasiswaEvent) -> Unit,
+    errorState: FormErrorState = FormErrorState(),
+    modifier: Modifier = Modifier
+) {
+    val jenisKelamin = listOf("Laki-laki", "Perempuan")
+    val kelas = listOf("A", "B", "C", "D", "E")
+
+    Column(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = mahasiswaEvent.nama,
+            onValueChange = {
+                onValueChange(mahasiswaEvent.copy(nama = it))
+            },
+            label = { Text("Nama") },
+            isError = errorState.nama != null,
+            placeholder = { Text("Masukkan nama") },
+        )
+        Text(
+            text = errorState.nama ?: "",
+            color = Color.Red
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(text = "Jenis Kelamin")
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            jenisKelamin.forEach { jk ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    RadioButton(
+                        selected = mahasiswaEvent.jenisKelamin == jk,
+                        onClick = {
+                            onValueChange(mahasiswaEvent.copy(jenisKelamin = jk))
+                        }
+                    )
+                    Text(text = jk)
+                }
+            }
+        }
+        Text(
+            text = errorState.jenisKelamin ?: "",
+            color = Color.Red
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(text = "Kelas")
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            kelas.forEach { kelas ->
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    RadioButton(
+                        selected = mahasiswaEvent.kelas == kelas,
+                        onClick = {
+                            onValueChange(mahasiswaEvent.copy(kelas = kelas))
+                        }
+                    )
+                    Text(text = kelas)
+                }
+            }
+        }
+        Text(
+            text = errorState.kelas ?: "",
+            color = Color.Red
+        )
+    }
+}
