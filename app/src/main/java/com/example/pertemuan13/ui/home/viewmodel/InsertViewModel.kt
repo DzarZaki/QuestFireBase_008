@@ -38,4 +38,39 @@ class InsertViewModel (
         return errorState.isValid()
     }
 }
+fun insertMhs() {
+    if (validateFields()) {
+        viewModelScope.launch {
+            uiState = FormState.Loading
+            try {
+                mhs.insertMhs(uiEvent.insertUiEvent.toMhsModel())
+                uiState = FormState.Success("Data berhasil disimpan")
+            } catch (e: Exception) {
+                uiState = FormState.Error("Data gagal disimpan")
+            }
+        }
+    } else {
+        uiState = FormState.Error("Data tidak valid")
+    }
+}
 
+fun resetForm() {
+    uiEvent = InsertUiState()
+    uiState = FormState.Idle
+}
+
+fun resetSnackBarMessage() {
+    uiState = FormState.Idle
+}
+
+sealed class FormState {
+    object Idle : FormState()
+    object Loading : FormState()
+    data class Success(val message: String) : FormState()
+    data class Error(val message: String) : FormState()
+}
+
+data class InsertUiState(
+    val insertUiEvent: MahasiswaEvent = MahasiswaEvent(),
+    val isEntryValid: FormErrorState = FormErrorState(),
+)
