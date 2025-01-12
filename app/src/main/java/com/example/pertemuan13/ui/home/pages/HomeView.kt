@@ -72,6 +72,9 @@ fun HomeScreen(
             retryAction = {viewModel.getMhs()}, modifier = Modifier.padding(innerPadding),
             onDetailClick = {
                 viewModel.getMhs()
+            },
+            onDeleteClick = {
+                viewModel.deleteMhs(it)
             }
         )
     }
