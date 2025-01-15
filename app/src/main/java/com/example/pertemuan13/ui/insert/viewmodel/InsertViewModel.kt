@@ -102,4 +102,6 @@ fun MahasiswaEvent.toMhsModel() : Mahasiswa = Mahasiswa(
     alamat = alamat,
     kelas = kelas,
     angkatan = angkatan
+
+
 )
